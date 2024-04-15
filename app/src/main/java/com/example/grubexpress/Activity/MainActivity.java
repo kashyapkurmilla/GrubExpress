@@ -1,41 +1,90 @@
 package com.example.grubexpress.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grubexpress.Adapter.BestFoodsAdapter;
+import com.example.grubexpress.Domain.Foods;
 import com.example.grubexpress.Domain.Location;
 import com.example.grubexpress.Domain.Price;
 import com.example.grubexpress.Domain.Time;
 import com.example.grubexpress.R;
 import com.example.grubexpress.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
 private ActivityMainBinding binding ;
+private FirebaseAuth Auth ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ImageView b1 = binding.logoutbtn;
         
         initLocation();
         initTime();
         initPrice();
-        
+        initBestFood();
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Auth.getInstance().signOut();
+                Toast.makeText(MainActivity.this, "Logout successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+
+    private void initBestFood() {
+        DatabaseReference myRef = database.getReference("Foods");
+        binding.progressBarBestFood.setVisibility(View.VISIBLE);
+        ArrayList<Foods> list = new ArrayList<>();
+        Query query = myRef.orderByChild("BestFood").equalTo(true);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        list.add(issue.getValue(Foods.class));
+                    }
+                    if (!list.isEmpty()) {
+                        binding.BestFoodView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        RecyclerView.Adapter<BestFoodsAdapter.ViewHolder> adapter = new BestFoodsAdapter(list);
+                        binding.BestFoodView.setAdapter(adapter);
+                    }
+                }
+                binding.progressBarBestFood.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initLocation() {

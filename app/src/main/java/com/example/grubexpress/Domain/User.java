@@ -1,11 +1,12 @@
 package com.example.grubexpress.Domain;
 
 public class User {
-    String EmailId, userName;
+    String EmailId, userName , phoneNumber ;
     Integer grubCoins;
 
-    public User(){
+    public User() {
     }
+
 
     public String getEmailId() {
         return EmailId;
@@ -23,11 +24,26 @@ public class User {
         this.userName = userName;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Integer getGrubCoins() {
         return grubCoins;
     }
 
     public void setGrubCoins(Integer grubCoins) {
+        this.grubCoins = grubCoins;
+    }
+
+    public User(String emailId, String userName, String phoneNumber, Integer grubCoins) {
+        EmailId = emailId;
+        this.userName = userName;
+        this.phoneNumber = phoneNumber;
         this.grubCoins = grubCoins;
     }
 }
