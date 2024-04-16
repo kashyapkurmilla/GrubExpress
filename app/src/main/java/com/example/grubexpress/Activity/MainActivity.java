@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,9 +19,11 @@ import com.example.grubexpress.Domain.Foods;
 import com.example.grubexpress.Domain.Location;
 import com.example.grubexpress.Domain.Price;
 import com.example.grubexpress.Domain.Time;
+import com.example.grubexpress.Domain.User;
 import com.example.grubexpress.R;
 import com.example.grubexpress.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +35,8 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity {
 private ActivityMainBinding binding ;
 private FirebaseAuth Auth ;
+
+TextView grubcoins , welcomeName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,8 @@ private FirebaseAuth Auth ;
         setContentView(binding.getRoot());
 
         ImageView b1 = binding.logoutbtn;
-        
+
+        initUserData();
         initLocation();
         initTime();
         initPrice();
@@ -58,6 +64,45 @@ private FirebaseAuth Auth ;
         });
 
     }
+
+    private void initUserData() {
+        welcomeName = binding.textView13;
+        grubcoins = binding.textView10;
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference userRef = database.getReference("Users").child(currentUser.getUid());
+
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String userName = snapshot.child("userName").getValue(String.class);
+                        Long grubCoins = snapshot.child("grubCoins").getValue(Long.class);
+
+                        if (userName != null) {
+                            welcomeName.setText(userName);
+                        }
+
+                        if (grubCoins != null) {
+                            grubcoins.setText(String.valueOf(grubCoins));
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle error
+                }
+            });
+        } else {
+            // Handle the case where currentUser is null
+            Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
 
     private void initBestFood() {
         DatabaseReference myRef = database.getReference("Foods");

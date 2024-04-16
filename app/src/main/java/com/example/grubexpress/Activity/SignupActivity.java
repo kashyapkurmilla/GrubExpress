@@ -118,7 +118,7 @@ public class SignupActivity extends BaseActivity {
         phoneNumber = binding.editTextPhone2.getText().toString();
         GrubCoins = 50;
 
-        User user = new User(userName, userEmail, phoneNumber, GrubCoins);
+        User user = new User(userEmail, userName, phoneNumber, GrubCoins);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Users"); // Assuming "Users" is the root node for user data
