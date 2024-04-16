@@ -114,22 +114,33 @@ public class SignupActivity extends BaseActivity {
 
     private void pushValuestoDatabase() {
         userName = binding.editTextText.getText().toString();
-        userEmail=binding.editTextTextEmailAddress2.getText().toString();
+        userEmail = binding.editTextTextEmailAddress2.getText().toString();
         phoneNumber = binding.editTextPhone2.getText().toString();
-        GrubCoins = 50 ;
+        GrubCoins = 50;
 
-        User users = new User(userName,userEmail,phoneNumber,GrubCoins);
+        User user = new User(userName, userEmail, phoneNumber, GrubCoins);
+
         database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users"); // Assuming "Users" is the root node for user data
 
-        myRef = database.getReference("User");
-        myRef.child(userEmail).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+        // Get the current user's UID
+        String uid = mAuth.getInstance().getCurrentUser().getUid();
+
+        // Use UID as the key for the database reference
+        myRef.child(uid).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                binding.editTextText.setText("");
-                binding.editTextTextEmailAddress2.setText("");
-                binding.editTextPhone2.setText("");
+                if (task.isSuccessful()) {
+                    // Clear input fields upon successful database write
+                    binding.editTextText.setText("");
+                    binding.editTextTextEmailAddress2.setText("");
+                    binding.editTextPhone2.setText("");
+                } else {
+                    // Handle database write failure
+                    Toast.makeText(SignupActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
+
 }
