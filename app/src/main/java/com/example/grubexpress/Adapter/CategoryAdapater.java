@@ -3,6 +3,7 @@ package com.example.grubexpress.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class CategoryAdapater extends RecyclerView.Adapter<CategoryAdapater.View
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, ListFoodsActivity.class);
             intent.putExtra("CategoryId", items.get(position).getId());
+            Log.d("Category", items.get(position).getName());
             intent.putExtra("CategoryName", items.get(position).getName());
             context.startActivity(intent);
         });

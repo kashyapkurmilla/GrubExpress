@@ -42,6 +42,10 @@ public class ListFoodsActivity extends BaseActivity {
         setContentView(binding.getRoot());
         getIntentExtra();
         initList();
+        setVariable();
+    }
+
+    private void setVariable() {
     }
 
     private void initList() {

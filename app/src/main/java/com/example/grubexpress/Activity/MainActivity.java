@@ -56,6 +56,7 @@ TextView grubcoins , welcomeName;
         initPrice();
         initBestFood();
         initCategory();
+      //  setVariable();
 
         Button chatBotbtn = binding.button4;
 
@@ -78,6 +79,8 @@ TextView grubcoins , welcomeName;
         });
 
     }
+
+
 
     private void initUserData() {
         welcomeName = binding.textView13;
