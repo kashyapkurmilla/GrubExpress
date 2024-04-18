@@ -1,5 +1,6 @@
 package com.example.grubexpress.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -87,7 +88,7 @@ public class CategoryAdapater extends RecyclerView.Adapter<CategoryAdapater.View
         }
 
 
-        int drawableResourceId = context.getResources().getIdentifier(items.get(position).getImagePath(), "drawable", context.getPackageName());
+        @SuppressLint("DiscouragedApi") int drawableResourceId = context.getResources().getIdentifier(items.get(position).getImagePath(), "drawable", context.getPackageName());
 
 //         Load image using Glide library
         Glide.with(context)
