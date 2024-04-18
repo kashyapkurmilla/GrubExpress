@@ -12,10 +12,13 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grubexpress.Adapter.BestFoodsAdapter;
+import com.example.grubexpress.Adapter.CategoryAdapater;
+import com.example.grubexpress.Domain.Category;
 import com.example.grubexpress.Domain.Foods;
 import com.example.grubexpress.Domain.Location;
 import com.example.grubexpress.Domain.Price;
@@ -52,6 +55,7 @@ TextView grubcoins , welcomeName;
         initTime();
         initPrice();
         initBestFood();
+        initCategory();
 
         Button chatBotbtn = binding.button4;
 
@@ -141,6 +145,38 @@ TextView grubcoins , welcomeName;
             }
         });
     }
+
+
+
+    private void initCategory() {
+        DatabaseReference myRef = database.getReference("Category");
+        binding.progressBar5.setVisibility(View.VISIBLE);
+        ArrayList<Category> list = new ArrayList<>();
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        list.add(issue.getValue(Category.class));
+                    }
+                    if (!list.isEmpty()) {
+                        binding.ChooseCategory.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
+                        RecyclerView.Adapter<CategoryAdapater.ViewHolder> adapter = new CategoryAdapater(list);
+                        binding.ChooseCategory.setAdapter(adapter);
+                    }
+                }
+                binding.progressBar5.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
 
     private void initLocation() {
         DatabaseReference myRef =database.getReference("Location");
