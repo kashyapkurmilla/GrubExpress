@@ -1,6 +1,7 @@
 package com.example.grubexpress.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.grubexpress.Activity.ListFoodsActivity;
 import com.example.grubexpress.Domain.Category;
 import com.example.grubexpress.Domain.Foods;
 import com.example.grubexpress.R;
@@ -27,7 +29,7 @@ public class CategoryAdapater extends RecyclerView.Adapter<CategoryAdapater.View
         this.items = items;
     }
 
-    @NonNull
+//    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -91,6 +93,12 @@ public class CategoryAdapater extends RecyclerView.Adapter<CategoryAdapater.View
         Glide.with(context)
                 .load(drawableResourceId)
                 .into(holder.pic);
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ListFoodsActivity.class);
+            intent.putExtra("CategoryId", items.get(position).getId());
+            intent.putExtra("CategoryName", items.get(position).getName());
+            context.startActivity(intent);
+        });
     }
 
     @Override
