@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,15 @@ TextView grubcoins , welcomeName;
         initTime();
         initPrice();
         initBestFood();
+
+        Button chatBotbtn = binding.button4;
+
+        chatBotbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    
+            }
+        });
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
