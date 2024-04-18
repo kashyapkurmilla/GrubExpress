@@ -33,7 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
+import com.example.geminibot.*;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
@@ -49,6 +49,7 @@ TextView grubcoins , welcomeName;
         setContentView(binding.getRoot());
 
         ImageView b1 = binding.logoutbtn;
+        Button ChatBotBtn = binding.button4;
 
         initUserData();
         initLocation();
@@ -63,7 +64,8 @@ TextView grubcoins , welcomeName;
         chatBotbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    
+                Intent intent = new Intent(MainActivity.this, com.example.geminibot.MainActivity.class);
+                startActivity(intent);
             }
         });
 

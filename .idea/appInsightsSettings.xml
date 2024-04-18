@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.grubexpress" />
-                  <option name="mobileSdkAppId" value="1:893957484619:android:a309a1dc5d29367716ddce" />
-                  <option name="projectId" value="grub-express-5ce8f" />
-                  <option name="projectNumber" value="893957484619" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
