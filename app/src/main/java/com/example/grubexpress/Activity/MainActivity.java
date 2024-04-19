@@ -33,7 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.example.geminibot.*;
+//import com.example.geminibot.*;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
@@ -57,15 +57,15 @@ TextView grubcoins , welcomeName;
         initPrice();
         initBestFood();
         initCategory();
-      //  setVariable();
+        setVariable();
 
         Button chatBotbtn = binding.button4;
 
         chatBotbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, com.example.geminibot.MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, com.example.geminibot.MainActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -82,6 +82,21 @@ TextView grubcoins , welcomeName;
 
     }
 
+    private void setVariable() {
+        binding.logoutbtn.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, IntroActivity.class));
+        });
+        binding.searchBtn.setOnClickListener(v -> {
+            String text = binding.searchEdit.getText().toString();
+            if(!text.isEmpty()){
+                Intent intent = new Intent(MainActivity.this, ListFoodsActivity.class);
+                intent.putExtra("text", text);
+                intent.putExtra("isSearch",true);
+                startActivity(intent);
+            }
+        });
+    }
 
 
     private void initUserData() {
