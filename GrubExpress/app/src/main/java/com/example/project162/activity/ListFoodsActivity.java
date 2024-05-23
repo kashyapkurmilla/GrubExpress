@@ -1,7 +1,6 @@
-package com.example.project162.Activity;
+package com.example.project162.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +9,6 @@ import android.view.View;
 
 import com.example.project162.Adapter.FoodListAdapter;
 import com.example.project162.Domain.Foods;
-import com.example.project162.R;
 import com.example.project162.databinding.ActivityListFoodsBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -1,7 +1,6 @@
-package com.example.project162.Activity;
+package com.example.project162.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,13 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.project162.Adapter.CartAdapter;
 import com.example.project162.Domain.Order;
-import com.example.project162.Helper.ChangeNumberItemsListener;
 import com.example.project162.Helper.ManagmentCart;
-import com.example.project162.R;
 import com.example.project162.databinding.ActivityCartBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

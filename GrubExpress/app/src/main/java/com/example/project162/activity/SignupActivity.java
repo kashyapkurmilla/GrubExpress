@@ -1,6 +1,4 @@
-package com.example.project162.Activity;
-
-import static android.os.Build.VERSION_CODES.R;
+package com.example.project162.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.project162.Domain.User;
-import com.example.project162.R;
-import com.example.project162.R.id;
-import com.example.project162.databinding.ActivitySignupBinding;
 import com.example.project162.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

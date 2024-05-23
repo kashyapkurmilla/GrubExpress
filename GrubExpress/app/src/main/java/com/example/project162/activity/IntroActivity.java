@@ -1,13 +1,9 @@
-package com.example.project162.Activity;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.project162.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.project162.R;
 import com.example.project162.databinding.ActivityIntroBinding;
 
 public class IntroActivity extends BaseActivity {
